@@ -1,0 +1,221 @@
+<!doctype html>
+
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <title>Domain Plotter</title>
+
+    <link rel="stylesheet" href="style.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/1.3.1/p5.min.js"
+        integrity="sha512-gQVBYBvfC+uyor5Teonjr9nmY1bN+DlOCezkhzg4ShpC5q81ogvFsr5IV4xXAj6HEtG7M1Pb2JCha97tVFItYQ=="
+        crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+
+    <script src="utilities.js"></script>
+    <script src="defaults.js"></script>
+</head>
+
+<body>
+    <div class="container">
+        <div class="title">
+            <h1>Domain Plotter</h1>
+        </div>
+
+        <div id="control-panel" class="control-cont">
+            <input type="file" id="mesh-file-upload" class="slider-input" accept=".json">
+
+            <div class="aligned-span">
+                <span>Z-Scaling: </span>
+                <input type="range" id="h-slider" class="aligned-span-input" min="0" max="100" value="25">
+            </div>
+
+            <div class="aligned-span">
+                <span>Cell Alpha: </span>
+                <input type="range" id="alpha-slider" class="aligned-span-input" min="0" max="100" value="75">
+            </div>
+
+            <div class="aligned-span">
+                <span>X-Center: </span>
+                <input type="range" id="x-center" class="aligned-span-input" min="-150" max="150" value="0">
+            </div>
+            <div class="aligned-span">
+                <span>Y-Center: </span>
+                <input type="range" id="y-center" class="aligned-span-input" min="-150" max="150" value="0">
+            </div>
+            <div class="aligned-span">
+                <span>Z-Center: </span>
+                <input type="range" id="z-center" class="aligned-span-input" min="-100" max="100" value="0">
+            </div>
+
+            <div>
+                <span>h-Level: </span>
+                <select name="h-level-dir" id="h-level-dir-menu">
+                    <option value="max" selected="selected">max [u, v]</option>
+                    <option value="min">min [u, v]</option>
+                    <option value="u">u</option>
+                    <option value="v">v</option>
+                </select>
+            </div>
+
+            <div>
+                <span> min-h-level: </span>
+                <select name="h-level-min" id="h-level-min-menu">
+                    <option id="h-level-min-0" value="0" selected="selected">0</option>
+                </select>
+            </div>
+
+            <div>
+                <span>max-h-level: </span>
+                <select name="h-level-max" id="h-level-max-menu">
+                    <option id="h-level-max-1" value="1" selected="selected">1</option>
+                </select>
+            </div>
+
+            <input type="checkbox" id="inheritance-checkbox">
+            <span>Show Inheritance </span>
+            <br>
+
+            <input type="checkbox" id="cell-id-checkbox">
+            <span>Show Cell Ids </span>
+            <br>
+
+            <input type="checkbox" id="active-geo-checkbox">
+            <span>Show Active Geometry</span>
+            <br>
+
+            <div id="active-edge-settings" class="aligned-span" style="visibility: hidden;">
+                <span>Active Edge Color</span>
+                <input type="text" id="active-edge-color" class="aligned-span-input" value="#000000"
+                    style="width: 15px;">
+                <input type="range" id="active-edge-weight" class="aligned-span-input" min="2" max="12" value="4">
+            </div>
+            <br>
+
+            <div>
+                <span>Map Color to: </span>
+                <select name="color-mapping" id="color-mapping-menu">
+                    <option value="none" selected="selected">None</option>
+                    <option value="both">[u, v]</option>
+                    <option value="u">u</option>
+                    <option value="v">v</option>
+                </select>
+            </div>
+
+            <br>
+
+            <div class="aligned-span">
+                <span>Color Scale: </span>
+                <input type="text" id="color-scale-min" class="aligned-span-input" value="0" style="width: 15px;">
+                <span> - </span>
+                <input type="text" id="color-scale-max" class="aligned-span-input" value="1" style="width: 15px;">
+                <span> </span>
+                <input type="button" id="color-scale-auto" class="aligned-span-input" value="Auto">
+            </div>
+
+            <div id="color-key-loc" style="visibility: hidden;">
+                <div>
+                    <span>Color Key Type:</span>
+                    <select name="color-key-type" id="color-key-type-select">
+                        <option value="proc" selected="selected">Procedural</option>
+                        <option value="dict1">Cool</option>
+                        <option value="dict2">Warm</option>
+                    </select>
+                </div>
+
+                <div id="proc-color-settings">
+                    <div class="aligned-span">
+                        <span>Central Hue: </span>
+                        <input type="range" id="hue-slider" class="aligned-span-input" min="0" max="360" value="180">
+                    </div>
+                    <div class="aligned-span">
+                        <span>Hue Variance: </span>
+                        <input type="range" id="hue-var-slider" class="aligned-span-input" min="0" max="180" value="90">
+                    </div>
+                    <br>
+
+                    <div class="aligned-span">
+                        <span>Central Saturation: </span>
+                        <input type="range" id="sat-slider" class="aligned-span-input" min="0" max="100" value="50">
+                    </div>
+                    <div class="aligned-span">
+                        <span>Saturation Variance: </span>
+                        <input type="range" id="sat-var-slider" class="aligned-span-input" min="0" max="50" value="25">
+                    </div>
+                    <br>
+
+                    <div class="aligned-span">
+                        <span>Central Brightness: </span>
+                        <input type="range" id="bri-slider" class="aligned-span-input" min="0" max="100" value="50">
+                    </div>
+                    <div class="aligned-span">
+                        <span>Brightness Variance: </span>
+                        <input type="range" id="bri-var-slider" class="aligned-span-input" min="0" max="50" value="25">
+                    </div>
+                </div>
+                <br>
+
+                <span>Legend Location:</span>
+                <div class="aligned-span">
+                    <span>X: </span>
+                    <input type="range" id="x-slider" class="aligned-span-input" min="-50" max="50" value="-25">
+                </div>
+                <div class="aligned-span">
+                    <span>Y: </span>
+                    <input type="range" id="z-slider" class="aligned-span-input" min="-50" max="50" value="-25">
+                </div>
+                <div class="aligned-span">
+                    <span>Z: </span>
+                    <input type="range" id="y-slider" class="aligned-span-input" min="-50" max="50" value="-25">
+                </div>
+            </div>
+
+            <div>
+                <input type="button" id="save-canvas-img" value="Save IMG">
+                <input type="text" id="canvas-img-name" value="domain" style="width:100px"><span>.jpeg</span>
+            </div>
+
+        </div>
+
+        <div id="canvas-container" class="canvas-cont" style="border-style: solid;"></div>
+
+        <!-- <div id="other-controls" class="alt-control-cont">
+            <span>Upload Quantity Files: </span>
+            <input type="file" id="quant-file-upload" class="slider-input" accept=".json" multiple>
+            <br>
+
+            <span>Cell Quantity:</span>
+            <select name="cell-quantity" id="cell-quantity-menu">
+                <option value="none" selected="selected">None</option>
+            </select>
+            <br>
+
+            <span>Cell Min: </span>
+            <a id="cell-min-value">0</a>
+            <br>
+            <span>Cell Max: </span>
+            <a id="cell-max-value">0</a>
+            <br>
+
+            <span>Edge Quantity:</span>
+            <select name="edge-quantity" id="edge-quantity-menu">
+                <option value="none" selected="selected">None</option>
+            </select>
+            <br>
+
+            <span>Edge Min: </span>
+            <a id="edge-min-value">0</a>
+            <br>
+            <span>Edge Max: </span>
+            <a id="edge-max-value">0</a>
+            <br>
+
+
+        </div> -->
+    </div>
+
+    <script src="dom_callbacks.js"></script>
+    <script src="file_upload.js"></script>
+    <script src="main.js" defer></script>
+</body>
+
+</html>
