@@ -1,14 +1,12 @@
 {
-  "name": "domainplot2",
+  "name": "fem_2d_mesh_plot",
   "version": "1.0.0",
-  "description": "",
-  "main": "index.js",
-  "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
-  },
-  "author": "",
-  "license": "ISC",
+  "description": "Mesh plotter for https://github.com/jeremiah-corrado/fem_2d",
+  "main": "server.js",
+  "author": "jeremiah-corrado",
+  "license": "MIT",
   "dependencies": {
     "express": "^4.17.1"
-  }
+  },
+  "repository": "https://github.com/jeremiah-corrado/fem_2d_mesh_plot"
 }
