@@ -12,7 +12,7 @@ let mut mesh = mesh::from_file("./input_files/some_mesh.json").unwrap();
 
 // execute some refinements
 mesh.set_global_expansion_orders([3, 4]).unwrap();
-mesh.h_refine_elems(vec![0, 3, 4, 6], HRef::t()).unwrap();
+mesh.h_refine_elems(vec![0, 3, 4, 6], HRef::T).unwrap();
 
 // export the mesh file 
 mesh.export_to_json("./output_files/refined_mesh.json").unwrap();
