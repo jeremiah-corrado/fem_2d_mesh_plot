@@ -37,6 +37,6 @@ This tool allows mesh files to be visualized in 3D, and exported as images
 
 Please include one or more of the following citations in any academic or commercial work based on this repository:
 
-* ***metapaper*** (coming soon!)
+*  Corrado, Jeremiah; Harmon, Jake; Notaros, Branislav; Ilic, Milan M. (2022): FEM_2D: A Rust Package for 2D Finite Element Method Computations with Extensive Support for hp-refinement. TechRxiv. Preprint. [https://doi.org/10.36227/techrxiv.19166339.v1](https://doi.org/10.36227/techrxiv.19166339.v1) 
 * Corrado, Jeremiah; Harmon, Jake; Notaros, Branislav (2021): A Refinement-by-Superposition Approach to Fully Anisotropic hp-Refinement for Improved Efficiency in CEM. TechRxiv. Preprint. [https://doi.org/10.36227/techrxiv.16695163.v1](https://doi.org/10.36227/techrxiv.16695163.v1)
 * Harmon, Jake; Corrado, Jeremiah; Notaros, Branislav (2021): A Refinement-by-Superposition hp-Method for H(curl)- and H(div)-Conforming Discretizations. TechRxiv. Preprint. [https://doi.org/10.36227/techrxiv.14807895.v1](https://doi.org/10.36227/techrxiv.14807895.v1)
